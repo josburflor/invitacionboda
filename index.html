@@ -1,0 +1,2958 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boda Online — Ana & Carlos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* =====================================================
+       DESIGN TOKENS — :root variables
+    ===================================================== */
+    :root {
+      /* Colors */
+      --color-bg:            #FAF7F2;
+      --color-surface:       #FFFFFF;
+      --color-primary:       #B8915A;
+      --color-primary-light: #D4AA78;
+      --color-primary-dark:  #8C6A3A;
+      --color-accent:        #C9A96E;
+      --color-text-dark:     #2C2416;
+      --color-text-mid:      #6B5B44;
+      --color-text-light:    #A08C72;
+      --color-border:        #E8DECE;
+      --color-overlay:       rgba(44, 36, 22, 0.45);
+      --color-nav-bg:        rgba(250, 247, 242, 0.96);
+
+      /* Typography */
+      --font-display:        'Cormorant Garamond', Georgia, serif;
+      --font-body:           'Jost', sans-serif;
+
+      --fs-xs:               0.75rem;    /* 12px */
+      --fs-sm:               0.875rem;   /* 14px */
+      --fs-base:             1rem;       /* 16px */
+      --fs-md:               1.125rem;   /* 18px */
+      --fs-lg:               1.375rem;   /* 22px */
+      --fs-xl:               1.75rem;    /* 28px */
+      --fs-2xl:              2.25rem;    /* 36px */
+      --fs-3xl:              3rem;       /* 48px */
+      --fs-4xl:              4rem;       /* 64px */
+      --fs-5xl:              5.5rem;     /* 88px */
+
+      --fw-light:            300;
+      --fw-regular:          400;
+      --fw-medium:           500;
+      --fw-semibold:         600;
+
+      --lh-tight:            1.1;
+      --lh-snug:             1.3;
+      --lh-normal:           1.6;
+      --lh-relaxed:          1.8;
+
+      /* Spacing */
+      --sp-1:   0.25rem;   /*  4px */
+      --sp-2:   0.5rem;    /*  8px */
+      --sp-3:   0.75rem;   /* 12px */
+      --sp-4:   1rem;      /* 16px */
+      --sp-5:   1.25rem;   /* 20px */
+      --sp-6:   1.5rem;    /* 24px */
+      --sp-8:   2rem;      /* 32px */
+      --sp-10:  2.5rem;    /* 40px */
+      --sp-12:  3rem;      /* 48px */
+      --sp-16:  4rem;      /* 64px */
+      --sp-20:  5rem;      /* 80px */
+      --sp-24:  6rem;      /* 96px */
+      --sp-32:  8rem;      /* 128px */
+
+      /* Border radius */
+      --radius-sm:   4px;
+      --radius-md:   8px;
+      --radius-lg:   16px;
+      --radius-full: 9999px;
+
+      /* Shadows */
+      --shadow-sm:   0 1px 4px rgba(44, 36, 22, 0.08);
+      --shadow-md:   0 4px 20px rgba(44, 36, 22, 0.12);
+      --shadow-lg:   0 12px 48px rgba(44, 36, 22, 0.16);
+
+      /* Transitions */
+      --transition-fast:   150ms ease;
+      --transition-base:   300ms ease;
+      --transition-slow:   500ms ease;
+
+      /* Layout */
+      --max-width:         1200px;
+      --nav-height:        80px;
+    }
+
+    /* =====================================================
+       RESET & BASE
+    ===================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-weight: var(--fw-light);
+      font-size: var(--fs-base);
+      line-height: var(--lh-normal);
+      color: var(--color-text-dark);
+      background-color: var(--color-bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul, ol {
+      list-style: none;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: inherit;
+    }
+
+    /* =====================================================
+       UTILITY
+    ===================================================== */
+    .u-container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin-inline: auto;
+      padding-inline: var(--sp-8);
+    }
+
+    .u-section {
+      padding-block: var(--sp-24);
+    }
+
+    .u-section--lg {
+      padding-block: var(--sp-32);
+    }
+
+    .u-label {
+      font-family: var(--font-body);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+    }
+
+    .u-divider {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-4);
+      margin-block: var(--sp-6);
+    }
+
+    .u-divider__line {
+      flex: 1;
+      height: 1px;
+      background: var(--color-border);
+    }
+
+    .u-divider__ornament {
+      color: var(--color-primary);
+      font-size: var(--fs-lg);
+      line-height: 1;
+    }
+
+    /* =====================================================
+       NAVIGATION
+    ===================================================== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: var(--nav-height);
+      background: var(--color-nav-bg);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--color-border);
+      transition: box-shadow var(--transition-base);
+    }
+
+    .nav--scrolled {
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .nav__logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1px;
+    }
+
+    .nav__logo-initials {
+      font-family: var(--font-display);
+      font-size: var(--fs-xl);
+      font-weight: var(--fw-medium);
+      font-style: italic;
+      color: var(--color-primary);
+      line-height: 1;
+      letter-spacing: 0.05em;
+    }
+
+    .nav__logo-tagline {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-light);
+    }
+
+    .nav__menu {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-10);
+    }
+
+    .nav__link {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-mid);
+      transition: color var(--transition-fast);
+      position: relative;
+    }
+
+    .nav__link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--color-primary);
+      transform: scaleX(0);
+      transition: transform var(--transition-base);
+      transform-origin: left;
+    }
+
+    .nav__link:hover {
+      color: var(--color-primary);
+    }
+
+    .nav__link:hover::after {
+      transform: scaleX(1);
+    }
+
+    .nav__cta {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-surface);
+      background: var(--color-primary);
+      padding: var(--sp-3) var(--sp-6);
+      border-radius: var(--radius-full);
+      transition: background var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .nav__cta:hover {
+      background: var(--color-primary-dark);
+      transform: translateY(-1px);
+    }
+
+    /* Hamburger */
+    .nav__hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      padding: var(--sp-2);
+      background: transparent;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      transition: border-color var(--transition-fast);
+    }
+
+    .nav__hamburger:hover {
+      border-color: var(--color-primary);
+    }
+
+    .nav__hamburger-bar {
+      display: block;
+      width: 100%;
+      height: 1.5px;
+      background: var(--color-text-dark);
+      border-radius: var(--radius-full);
+      transition: transform var(--transition-base), opacity var(--transition-base);
+      transform-origin: center;
+    }
+
+    .nav__hamburger[aria-expanded="true"] .nav__hamburger-bar:nth-child(1) {
+      transform: translateY(6.5px) rotate(45deg);
+    }
+    .nav__hamburger[aria-expanded="true"] .nav__hamburger-bar:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    .nav__hamburger[aria-expanded="true"] .nav__hamburger-bar:nth-child(3) {
+      transform: translateY(-6.5px) rotate(-45deg);
+    }
+
+    /* Mobile drawer */
+    .nav__drawer {
+      display: none;
+      position: fixed;
+      top: var(--nav-height);
+      left: 0;
+      right: 0;
+      background: var(--color-bg);
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--sp-6) var(--sp-8);
+      flex-direction: column;
+      gap: var(--sp-4);
+      box-shadow: var(--shadow-md);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height var(--transition-slow), padding var(--transition-slow);
+    }
+
+    .nav__drawer.is-open {
+      max-height: 400px;
+      padding: var(--sp-6) var(--sp-8);
+    }
+
+    .nav__drawer-link {
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-text-mid);
+      padding-block: var(--sp-3);
+      border-bottom: 1px solid var(--color-border);
+      transition: color var(--transition-fast);
+    }
+
+    .nav__drawer-link:last-of-type {
+      border-bottom: none;
+    }
+
+    .nav__drawer-link:hover {
+      color: var(--color-primary);
+    }
+
+    .nav__drawer-cta {
+      display: inline-block;
+      margin-top: var(--sp-3);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-surface);
+      background: var(--color-primary);
+      padding: var(--sp-3) var(--sp-6);
+      border-radius: var(--radius-full);
+      text-align: center;
+    }
+
+    /* =====================================================
+       HERO
+    ===================================================== */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 680px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding-top: var(--nav-height);
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.3)), url('img/hero_bg.png') center/cover no-repeat;
+      z-index: 0;
+    }
+
+    /* Decorative flower rings */
+    .hero__ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.25);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero__ring--1 {
+      width: 560px;
+      height: 560px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .hero__ring--2 {
+      width: 680px;
+      height: 680px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-color: rgba(255,255,255,0.12);
+    }
+
+    .hero__ring--3 {
+      width: 820px;
+      height: 820px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-color: rgba(255,255,255,0.07);
+    }
+
+    /* Decorative botanical SVG elements */
+    .hero__botanical {
+      position: absolute;
+      z-index: 1;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .hero__botanical--left {
+      left: 3%;
+      bottom: 8%;
+      width: 260px;
+      transform: rotate(-15deg);
+    }
+
+    .hero__botanical--right {
+      right: 2%;
+      top: 12%;
+      width: 220px;
+      transform: rotate(20deg) scaleX(-1);
+    }
+
+    .hero__botanical--top-left {
+      left: 8%;
+      top: 10%;
+      width: 140px;
+      transform: rotate(-30deg);
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: var(--color-surface);
+      padding-inline: var(--sp-8);
+    }
+
+    .hero__eyebrow {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: var(--sp-5);
+    }
+
+    .hero__names {
+      font-family: var(--font-display);
+      font-size: var(--fs-5xl);
+      font-weight: var(--fw-light);
+      font-style: italic;
+      line-height: var(--lh-tight);
+      color: var(--color-surface);
+      margin-bottom: var(--sp-4);
+      text-shadow: 0 2px 30px rgba(44, 36, 22, 0.15);
+    }
+
+    .hero__ampersand {
+      display: block;
+      font-size: 3.5rem;
+      font-weight: var(--fw-light);
+      opacity: 0.7;
+      line-height: 1;
+      margin-block: var(--sp-2);
+    }
+
+    .hero__date {
+      font-family: var(--font-body);
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: var(--sp-10);
+    }
+
+    .hero__cta-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-4);
+      flex-wrap: wrap;
+    }
+
+    .hero__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: var(--sp-4) var(--sp-8);
+      border-radius: var(--radius-full);
+      transition: all var(--transition-base);
+    }
+
+    .hero__btn--primary {
+      background: var(--color-surface);
+      color: var(--color-primary-dark);
+    }
+
+    .hero__btn--primary:hover {
+      background: var(--color-bg);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(44, 36, 22, 0.2);
+    }
+
+    .hero__btn--outline {
+      background: transparent;
+      color: var(--color-surface);
+      border: 1.5px solid rgba(255,255,255,0.6);
+    }
+
+    .hero__btn--outline:hover {
+      border-color: var(--color-surface);
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-2px);
+    }
+
+    .hero__scroll {
+      position: absolute;
+      bottom: var(--sp-8);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-2);
+      color: rgba(255,255,255,0.7);
+      font-size: var(--fs-xs);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+
+    .hero__scroll-arrow {
+      width: 20px;
+      height: 20px;
+      border-right: 1.5px solid rgba(255,255,255,0.7);
+      border-bottom: 1.5px solid rgba(255,255,255,0.7);
+      transform: rotate(45deg);
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* =====================================================
+       COUNTDOWN
+    ===================================================== */
+    .countdown {
+      background: var(--color-text-dark);
+      padding-block: var(--sp-12);
+    }
+
+    .countdown__inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-12);
+      flex-wrap: wrap;
+    }
+
+    .countdown__item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-2);
+    }
+
+    .countdown__number {
+      font-family: var(--font-display);
+      font-size: var(--fs-4xl);
+      font-weight: var(--fw-light);
+      color: var(--color-accent);
+      line-height: 1;
+      min-width: 3ch;
+      text-align: center;
+    }
+
+    .countdown__label {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .countdown__separator {
+      font-family: var(--font-display);
+      font-size: var(--fs-3xl);
+      color: var(--color-primary);
+      opacity: 0.5;
+      line-height: 1;
+      align-self: flex-start;
+      margin-top: var(--sp-2);
+    }
+
+    /* =====================================================
+       NUESTRA HISTORIA
+    ===================================================== */
+    .story {
+      background: var(--color-bg);
+    }
+
+    .story__header {
+      text-align: center;
+      margin-bottom: var(--sp-16);
+    }
+
+    .story__title {
+      font-family: var(--font-display);
+      font-size: var(--fs-3xl);
+      font-weight: var(--fw-light);
+      font-style: italic;
+      color: var(--color-text-dark);
+      margin-block: var(--sp-4);
+      line-height: var(--lh-snug);
+    }
+
+    .story__subtitle {
+      font-size: var(--fs-md);
+      font-weight: var(--fw-light);
+      color: var(--color-text-mid);
+      max-width: 540px;
+      margin-inline: auto;
+      line-height: var(--lh-relaxed);
+    }
+
+    .story__timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+
+    .story__timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--color-border);
+      transform: translateX(-50%);
+    }
+
+    .story__item {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: var(--sp-8);
+      align-items: center;
+      padding-block: var(--sp-12);
+    }
+
+    .story__item:nth-child(odd) .story__item-text {
+      text-align: right;
+      grid-column: 1;
+    }
+
+    .story__item:nth-child(odd) .story__item-image {
+      grid-column: 3;
+    }
+
+    .story__item:nth-child(even) .story__item-text {
+      text-align: left;
+      grid-column: 3;
+      grid-row: 1;
+    }
+
+    .story__item:nth-child(even) .story__item-image {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .story__item-dot {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--color-surface);
+      border: 2px solid var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      grid-column: 2;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+
+    .story__item-dot-inner {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--color-primary);
+    }
+
+    .story__item-year {
+      font-family: var(--font-display);
+      font-size: var(--fs-2xl);
+      font-weight: var(--fw-medium);
+      color: var(--color-primary);
+      margin-bottom: var(--sp-2);
+      line-height: 1;
+    }
+
+    .story__item-heading {
+      font-family: var(--font-display);
+      font-size: var(--fs-xl);
+      font-weight: var(--fw-light);
+      font-style: italic;
+      color: var(--color-text-dark);
+      margin-bottom: var(--sp-3);
+      line-height: var(--lh-snug);
+    }
+
+    .story__item-body {
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-light);
+      color: var(--color-text-mid);
+      line-height: var(--lh-relaxed);
+    }
+
+    .story__item-image {
+      width: 100%;
+      max-width: 340px;
+      aspect-ratio: 4/5;
+      background: var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      justify-self: center;
+    }
+
+    .story__item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* =====================================================
+       DETALLES DEL EVENTO
+    ===================================================== */
+    .details {
+      background: var(--color-surface);
+    }
+
+    .details__header {
+      text-align: center;
+      margin-bottom: var(--sp-16);
+    }
+
+    .details__title {
+      font-family: var(--font-display);
+      font-size: var(--fs-3xl);
+      font-weight: var(--fw-light);
+      font-style: italic;
+      color: var(--color-text-dark);
+      margin-block: var(--sp-4);
+    }
+
+    .details__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-6);
+    }
+
+    .details__card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--sp-10) var(--sp-8);
+      text-align: center;
+      transition: box-shadow var(--transition-base), transform var(--transition-base);
+    }
+
+    .details__card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+    }
+
+    .details__card-icon {
+      width: 56px;
+      height: 56px;
+      margin-inline: auto;
+      margin-bottom: var(--sp-6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 50%;
+    }
+
+    .details__card-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--color-primary);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .details__card-label {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: var(--sp-3);
+    }
+
+    .details__card-title {
+      font-family: var(--font-display);
+      font-size: var(--fs-xl);
+      font-weight: var(--fw-medium);
+      font-style: italic;
+      color: var(--color-text-dark);
+      margin-bottom: var(--sp-3);
+      line-height: var(--lh-snug);
+    }
+
+    .details__card-text {
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-light);
+      color: var(--color-text-mid);
+      line-height: var(--lh-relaxed);
+    }
+
+    .details__card-link {
+      display: inline-block;
+      margin-top: var(--sp-5);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      border-bottom: 1px solid var(--color-primary);
+      padding-bottom: 2px;
+      transition: color var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .details__card-link:hover {
+      color: var(--color-primary-dark);
+      border-color: var(--color-primary-dark);
+    }
+
+    /* =====================================================
+       MAPA / LOCALIZACIONES
+    ===================================================== */
+    .locations {
+      background: var(--color-bg);
+    }
+
+    .locations__header {
+      text-align: center;
+      margin-bottom: var(--sp-16);
+    }
+
+    .locations__title {
+      font-family: var(--font-display);
+      font-size: var(--fs-3xl);
+      font-weight: var(--fw-light);
+      font-style: italic;
+      color: var(--color-text-dark);
+      margin-block: var(--sp-4);
+    }
+
+    .locations__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-8);
+    }
+
+    .location-card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--color-surface);
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow var(--transition-base), transform var(--transition-base);
+    }
+
+    .location-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+    }
+
+    .location-card__image {
+      width: 100%;
+      height: 240px;
+      background: linear-gradient(135deg, var(--color-border) 0%, #C9B08E 100%);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .location-card__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .location-card__badge {
+      position: absolute;
+      top: var(--sp-4);
+      left: var(--sp-4);
+      background: var(--color-primary);
+      color: var(--color-surface);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: var(--sp-1) var(--sp-3);
+      border-radius: var(--radius-full);
+    }
+
+    .location-card__body {
+      padding: var(--sp-8);
+    }
+
+    .location-card__name {
+      font-family: var(--font-display);
+      font-size: var(--fs-xl);
+      font-weight: var(--fw-medium);
+      font-style: italic;
+      color: var(--color-text-dark);
+      margin-bottom: var(--sp-2);
+    }
+
+    .location-card__address {
+      font-size: var(--fs-sm);
+      color: var(--color-text-mid);
+      line-height: var(--lh-relaxed);
+      margin-bottom: var(--sp-5);
+    }
+
+    .location-card__time {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-medium);
+      color: var(--color-primary);
+      margin-bottom: var(--sp-5);
+    }
+
+    .location-card__time svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--color-primary);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .location-card__map-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-surface);
+      background: var(--color-primary);
+      padding: var(--sp-3) var(--sp-5);
+      border-radius: var(--radius-full);
+      transition: background var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .location-card__map-btn:hover {
+      background: var(--color-primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .location-card__map-btn svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    /* =====================================================
+       PROGRAMA
+    ===================================================== */
+    .program {
+      background: var(--color-text-dark);
+      color: var(--color-surface);
+    }
+
+    .program__header {
+      text-align: center;
+      margin-bottom: var(--sp-16);
+    }
+
+    .program__label {
+      color: var(--color-primary-light);
+    }
+
+    .program__title {
+      font-family: var(--font-display);
+      font-size: var(--fs-3xl);
+      font-weight: var(--fw-light);
+      font-style: italic;
+      color: var(--color-surface);
+      margin-block: var(--sp-4);
+    }
+
+    .program__subtitle {
+      color: rgba(255,255,255,0.6);
+      font-size: var(--fs-md);
+    }
+
+    .program__timeline {
+      max-width: 680px;
+      margin-inline: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+
+    .program__timeline::before {
+      content: '';
+      position: absolute;
+      left: 72px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(255,255,255,0.1);
+    }
+
+    .program__item {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: var(--sp-6);
+      padding-block: var(--sp-6);
+      position: relative;
+    }
+
+    .program__item::after {
+      content: '';
+      position: absolute;
+      left: 67px;
+      top: 50%;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+
+    .program__time {
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      font-weight: var(--fw-light);
+      color: var(--color-accent);
+      text-align: right;
+      padding-right: var(--sp-6);
+      line-height: 1.2;
+      padding-top: 2px;
+    }
+
+    .program__content {
+      padding-left: var(--sp-6);
+    }
+
+    .program__event-name {
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      font-weight: var(--fw-medium);
+      font-style: italic;
+      color: var(--color-surface);
+      margin-bottom: var(--sp-1);
+    }
+
+    .program__event-desc {
+      font-size: var(--fs-sm);
+      color: rgba(255,255,255,0.5);
+      line-height: var(--lh-relaxed);
+    }
+
+    /* =====================================================
+       CONFIRMACIÓN ASISTENCIA (RSVP)
+    ===================================================== */
+    .rsvp {
+      background: var(--color-surface);
+    }
+
+    .rsvp__header {
+      text-align: center;
+      margin-bottom: var(--sp-12);
+    }
+
+    .rsvp__title {
+      font-family: var(--font-display);
+      font-size: var(--fs-3xl);
+      font-weight: var(--fw-light);
+      font-style: italic;
+      color: var(--color-text-dark);
+      margin-block: var(--sp-4);
+    }
+
+    .rsvp__subtitle {
+      font-size: var(--fs-md);
+      color: var(--color-text-mid);
+      max-width: 500px;
+      margin-inline: auto;
+      line-height: var(--lh-relaxed);
+    }
+
+    .rsvp__deadline {
+      display: inline-block;
+      margin-top: var(--sp-4);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+    }
+
+    .rsvp__form-wrapper {
+      max-width: 640px;
+      margin-inline: auto;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--sp-12) var(--sp-10);
+    }
+
+    .rsvp__form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-5);
+    }
+
+    .rsvp__field {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-2);
+    }
+
+    .rsvp__label {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-text-mid);
+    }
+
+    .rsvp__input {
+      width: 100%;
+      padding: var(--sp-4) var(--sp-5);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: var(--fs-base);
+      font-weight: var(--fw-light);
+      color: var(--color-text-dark);
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+      outline: none;
+    }
+
+    .rsvp__input:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(184, 145, 90, 0.15);
+    }
+
+    .rsvp__input::placeholder {
+      color: var(--color-text-light);
+    }
+
+    .rsvp__select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23A08C72' stroke-width='1.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right var(--sp-4) center;
+      padding-right: var(--sp-10);
+    }
+
+    .rsvp__row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-5);
+    }
+
+    .rsvp__attendance {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-3);
+    }
+
+    .rsvp__radio-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-2);
+      padding: var(--sp-4);
+      background: var(--color-surface);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-medium);
+      color: var(--color-text-mid);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .rsvp__radio-label:has(input:checked) {
+      border-color: var(--color-primary);
+      background: rgba(184, 145, 90, 0.06);
+      color: var(--color-primary);
+    }
+
+    .rsvp__radio-label input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .rsvp__submit {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-3);
+      margin-top: var(--sp-3);
+      width: 100%;
+      padding: var(--sp-5) var(--sp-8);
+      background: var(--color-primary);
+      color: var(--color-surface);
+      font-family: var(--font-body);
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      border: none;
+      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .rsvp__submit:hover {
+      background: var(--color-primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(184, 145, 90, 0.3);
+    }
+
+    .rsvp__submit:active {
+      transform: translateY(0);
+    }
+
+    /* =====================================================
+       LISTA DE BODA / REGALOS
+    ===================================================== */
+    .gifts {
+      background: linear-gradient(180deg, var(--color-bg) 0%, #EDE4D6 100%);
+    }
+
+    .gifts__header {
+      text-align: center;
+      margin-bottom: var(--sp-12);
+    }
+
+    .gifts__title {
+      font-family: var(--font-display);
+      font-size: var(--fs-3xl);
+      font-weight: var(--fw-light);
+      font-style: italic;
+      color: var(--color-text-dark);
+      margin-block: var(--sp-4);
+    }
+
+    .gifts__subtitle {
+      font-size: var(--fs-md);
+      color: var(--color-text-mid);
+      max-width: 500px;
+      margin-inline: auto;
+      line-height: var(--lh-relaxed);
+    }
+
+    .gifts__options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-6);
+      max-width: 840px;
+      margin-inline: auto;
+    }
+
+    .gifts__card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--sp-10) var(--sp-8);
+      text-align: center;
+      transition: box-shadow var(--transition-base), transform var(--transition-base);
+    }
+
+    .gifts__card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+    }
+
+    .gifts__card-icon {
+      font-size: 2.5rem;
+      margin-bottom: var(--sp-5);
+      display: block;
+    }
+
+    .gifts__card-title {
+      font-family: var(--font-display);
+      font-size: var(--fs-xl);
+      font-weight: var(--fw-medium);
+      font-style: italic;
+      color: var(--color-text-dark);
+      margin-bottom: var(--sp-3);
+    }
+
+    .gifts__card-text {
+      font-size: var(--fs-sm);
+      color: var(--color-text-mid);
+      line-height: var(--lh-relaxed);
+      margin-bottom: var(--sp-6);
+    }
+
+    .gifts__card-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      border: 1.5px solid var(--color-primary);
+      padding: var(--sp-3) var(--sp-6);
+      border-radius: var(--radius-full);
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+
+    .gifts__card-btn:hover {
+      background: var(--color-primary);
+      color: var(--color-surface);
+    }
+
+    /* =====================================================
+       GALERÍA
+    ===================================================== */
+    .gallery {
+      background: var(--color-surface);
+    }
+
+    .gallery__header {
+      text-align: center;
+      margin-bottom: var(--sp-12);
+    }
+
+    .gallery__title {
+      font-family: var(--font-display);
+      font-size: var(--fs-3xl);
+      font-weight: var(--fw-light);
+      font-style: italic;
+      color: var(--color-text-dark);
+      margin-block: var(--sp-4);
+    }
+
+    .gallery__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: auto;
+      gap: var(--sp-3);
+    }
+
+    .gallery__item {
+      background: var(--color-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      aspect-ratio: 1;
+      transition: transform var(--transition-base), box-shadow var(--transition-base);
+      cursor: pointer;
+    }
+
+    .gallery__item:hover {
+      transform: scale(1.03);
+      box-shadow: var(--shadow-md);
+      z-index: 2;
+      position: relative;
+    }
+
+    .gallery__item--tall {
+      grid-row: span 2;
+      aspect-ratio: auto;
+    }
+
+    .gallery__item--wide {
+      grid-column: span 2;
+      aspect-ratio: 2/1;
+    }
+
+    .gallery__item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .gallery__placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--color-border) 0%, #C9B08E 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-light);
+      font-size: var(--fs-2xl);
+    }
+
+    /* =====================================================
+       ALOJAMIENTO
+    ===================================================== */
+    .accommodation {
+      background: var(--color-bg);
+    }
+
+    .accommodation__header {
+      text-align: center;
+      margin-bottom: var(--sp-12);
+    }
+
+    .accommodation__title {
+      font-family: var(--font-display);
+      font-size: var(--fs-3xl);
+      font-weight: var(--fw-light);
+      font-style: italic;
+      color: var(--color-text-dark);
+      margin-block: var(--sp-4);
+    }
+
+    .accommodation__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-6);
+    }
+
+    .hotel-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: box-shadow var(--transition-base), transform var(--transition-base);
+    }
+
+    .hotel-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+    }
+
+    .hotel-card__image {
+      height: 180px;
+      background: linear-gradient(135deg, #D4C5AD 0%, #B8A07A 100%);
+      overflow: hidden;
+    }
+
+    .hotel-card__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hotel-card__body {
+      padding: var(--sp-6);
+    }
+
+    .hotel-card__stars {
+      color: var(--color-primary);
+      font-size: var(--fs-sm);
+      margin-bottom: var(--sp-2);
+      letter-spacing: 2px;
+    }
+
+    .hotel-card__name {
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      font-weight: var(--fw-medium);
+      font-style: italic;
+      color: var(--color-text-dark);
+      margin-bottom: var(--sp-2);
+    }
+
+    .hotel-card__distance {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: var(--sp-3);
+    }
+
+    .hotel-card__text {
+      font-size: var(--fs-sm);
+      color: var(--color-text-mid);
+      line-height: var(--lh-relaxed);
+      margin-bottom: var(--sp-5);
+    }
+
+    .hotel-card__link {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      border-bottom: 1px solid var(--color-primary);
+      padding-bottom: 1px;
+      transition: color var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .hotel-card__link:hover {
+      color: var(--color-primary-dark);
+      border-color: var(--color-primary-dark);
+    }
+
+    /* =====================================================
+       PREGUNTAS FRECUENTES
+    ===================================================== */
+    .faq {
+      background: var(--color-surface);
+    }
+
+    .faq__header {
+      text-align: center;
+      margin-bottom: var(--sp-12);
+    }
+
+    .faq__title {
+      font-family: var(--font-display);
+      font-size: var(--fs-3xl);
+      font-weight: var(--fw-light);
+      font-style: italic;
+      color: var(--color-text-dark);
+      margin-block: var(--sp-4);
+    }
+
+    .faq__list {
+      max-width: 720px;
+      margin-inline: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .faq__item {
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .faq__question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-4);
+      padding-block: var(--sp-6);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      font-weight: var(--fw-medium);
+      font-style: italic;
+      color: var(--color-text-dark);
+      transition: color var(--transition-fast);
+    }
+
+    .faq__question:hover {
+      color: var(--color-primary);
+    }
+
+    .faq__icon {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .faq__icon svg {
+      width: 12px;
+      height: 12px;
+      stroke: var(--color-text-mid);
+      fill: none;
+      stroke-width: 2;
+      transition: transform var(--transition-base), stroke var(--transition-fast);
+    }
+
+    .faq__item.is-open .faq__question {
+      color: var(--color-primary);
+    }
+
+    .faq__item.is-open .faq__icon {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      transform: rotate(180deg);
+    }
+
+    .faq__item.is-open .faq__icon svg {
+      stroke: var(--color-surface);
+    }
+
+    .faq__answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height var(--transition-slow), padding var(--transition-slow);
+    }
+
+    .faq__answer-inner {
+      padding-bottom: var(--sp-6);
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-light);
+      color: var(--color-text-mid);
+      line-height: var(--lh-relaxed);
+    }
+
+    .faq__item.is-open .faq__answer {
+      max-height: 300px;
+    }
+
+    /* ---- SCROLL TOP BUTTON ---- */
+    .scroll-top {
+      position: fixed;
+      bottom: var(--sp-8);
+      right: var(--sp-8);
+      width: 48px;
+      height: 48px;
+      background: var(--color-surface);
+      color: var(--color-primary);
+      border: 1px solid var(--color-border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: all var(--transition-base);
+      box-shadow: var(--shadow-md);
+    }
+
+    .scroll-top.is-visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .scroll-top:hover {
+      background: var(--color-primary);
+      color: var(--color-surface);
+      border-color: var(--color-primary);
+      transform: translateY(-4px);
+    }
+
+    .scroll-top svg {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+    .footer {
+      background: var(--color-text-dark);
+      padding-block: var(--sp-16);
+    }
+
+    .footer__inner {
+      text-align: center;
+    }
+
+    .footer__monogram {
+      font-family: var(--font-display);
+      font-size: var(--fs-5xl);
+      font-weight: var(--fw-light);
+      font-style: italic;
+      color: var(--color-accent);
+      line-height: 1;
+      margin-bottom: var(--sp-6);
+    }
+
+    .footer__tagline {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: var(--sp-8);
+    }
+
+    .footer__date {
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      font-weight: var(--fw-light);
+      font-style: italic;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: var(--sp-12);
+    }
+
+    .footer__divider {
+      width: 80px;
+      height: 1px;
+      background: rgba(255,255,255,0.15);
+      margin-inline: auto;
+      margin-bottom: var(--sp-8);
+    }
+
+    .footer__nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-8);
+      flex-wrap: wrap;
+      margin-bottom: var(--sp-8);
+    }
+
+    .footer__nav-link {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      transition: color var(--transition-fast);
+    }
+
+    .footer__nav-link:hover {
+      color: var(--color-accent);
+    }
+
+    .footer__copy {
+      font-size: var(--fs-xs);
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.05em;
+    }
+
+    /* =====================================================
+       RESPONSIVE — TABLET (max 1024px)
+    ===================================================== */
+    @media (max-width: 1024px) {
+      :root {
+        --fs-5xl: 4rem;
+        --fs-4xl: 3rem;
+        --fs-3xl: 2.25rem;
+        --sp-32: 6rem;
+        --sp-24: 4rem;
+      }
+
+      .nav__menu {
+        display: none;
+      }
+
+      .nav__hamburger {
+        display: flex;
+      }
+
+      .nav__drawer {
+        display: flex;
+      }
+
+      .details__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .locations__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .accommodation__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .story__item {
+        grid-template-columns: 1fr 40px 1fr;
+        gap: var(--sp-6);
+      }
+
+      .story__item-image {
+        max-width: 260px;
+      }
+
+      .gallery__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .gifts__options {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* =====================================================
+       RESPONSIVE — MOBILE (max 768px)
+    ===================================================== */
+    @media (max-width: 768px) {
+      :root {
+        --fs-5xl:  3rem;
+        --fs-4xl:  2.25rem;
+        --fs-3xl:  2rem;
+        --fs-2xl:  1.75rem;
+        --sp-32:   4rem;
+        --sp-24:   3rem;
+        --sp-20:   2.5rem;
+        --sp-16:   3rem;
+        --sp-12:   2rem;
+        --nav-height: 68px;
+      }
+
+      .u-container {
+        padding-inline: var(--sp-5);
+      }
+
+      .hero__names {
+        font-size: clamp(2.5rem, 10vw, 4rem);
+      }
+
+      .hero__ampersand {
+        font-size: 2.5rem;
+      }
+
+      .hero__ring--1 { width: 320px; height: 320px; }
+      .hero__ring--2 { width: 420px; height: 420px; }
+      .hero__ring--3 { width: 520px; height: 520px; }
+
+      .hero__botanical { display: none; }
+
+      .countdown__inner {
+        gap: var(--sp-6);
+      }
+
+      .countdown__number {
+        font-size: var(--fs-3xl);
+      }
+
+      .countdown__separator {
+        display: none;
+      }
+
+      /* Story: stack vertically */
+      .story__timeline::before { display: none; }
+
+      .story__item {
+        grid-template-columns: 1fr;
+        gap: var(--sp-5);
+      }
+
+      .story__item:nth-child(odd) .story__item-text,
+      .story__item:nth-child(even) .story__item-text {
+        text-align: left;
+        grid-column: 1;
+        grid-row: 2;
+      }
+
+      .story__item:nth-child(odd) .story__item-image,
+      .story__item:nth-child(even) .story__item-image {
+        grid-column: 1;
+        grid-row: 1;
+        max-width: 100%;
+      }
+
+      .story__item-dot { display: none; }
+
+      .story__item-image {
+        aspect-ratio: 16/10;
+        max-width: 100%;
+      }
+
+      /* Details: single col */
+      .details__grid {
+        grid-template-columns: 1fr;
+        gap: var(--sp-4);
+      }
+
+      /* Locations: single col */
+      .locations__grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Program */
+      .program__timeline::before { left: 56px; }
+      .program__item { grid-template-columns: 56px 1fr; }
+      .program__item::after { left: 52px; }
+      .program__time { padding-right: var(--sp-3); }
+
+      /* RSVP */
+      .rsvp__form-wrapper {
+        padding: var(--sp-8) var(--sp-5);
+      }
+
+      .rsvp__row {
+        grid-template-columns: 1fr;
+      }
+
+      /* Gifts */
+      .gifts__options {
+        grid-template-columns: 1fr;
+      }
+
+      /* Gallery */
+      .gallery__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .gallery__item--tall { grid-row: span 1; aspect-ratio: 1; }
+      .gallery__item--wide { grid-column: span 1; aspect-ratio: 1; }
+
+      /* Accommodation */
+      .accommodation__grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Footer */
+      .footer__monogram {
+        font-size: var(--fs-4xl);
+      }
+
+      .footer__nav {
+        gap: var(--sp-5);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <header class="nav" id="nav" role="banner">
+    <div class="u-container">
+      <nav class="nav__inner" aria-label="Navegación principal">
+        <a href="#inicio" class="nav__logo" aria-label="Inicio — Ana &amp; Carlos">
+          <span class="nav__logo-initials">A &amp; C</span>
+          <span class="nav__logo-tagline">14 · Junio · 2027</span>
+        </a>
+
+        <ul class="nav__menu" role="list">
+          <li><a href="#historia" class="nav__link">Historia</a></li>
+          <li><a href="#detalles" class="nav__link">Detalles</a></li>
+          <li><a href="#lugares" class="nav__link">Lugares</a></li>
+          <li><a href="#programa" class="nav__link">Programa</a></li>
+          <li><a href="#galeria" class="nav__link">Galería</a></li>
+          <li><a href="#rsvp" class="nav__link">Alojamiento</a></li>
+          <li><a href="#rsvp" class="nav__cta">Confirmar asistencia</a></li>
+        </ul>
+
+        <button
+          class="nav__hamburger"
+          id="hamburger-btn"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+          aria-controls="nav-drawer"
+        >
+          <span class="nav__hamburger-bar"></span>
+          <span class="nav__hamburger-bar"></span>
+          <span class="nav__hamburger-bar"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Mobile drawer -->
+  <nav
+    class="nav__drawer"
+    id="nav-drawer"
+    aria-label="Menú de navegación"
+    role="navigation"
+  >
+    <a href="#historia"  class="nav__drawer-link" tabindex="-1">Historia</a>
+    <a href="#detalles"  class="nav__drawer-link" tabindex="-1">Detalles</a>
+    <a href="#lugares"   class="nav__drawer-link" tabindex="-1">Lugares</a>
+    <a href="#programa"  class="nav__drawer-link" tabindex="-1">Programa</a>
+    <a href="#galeria"   class="nav__drawer-link" tabindex="-1">Galería</a>
+    <a href="#rsvp"      class="nav__drawer-link" tabindex="-1">Alojamiento</a>
+    <a href="#rsvp"      class="nav__drawer-cta"  tabindex="-1">Confirmar asistencia</a>
+  </nav>
+
+  <main id="inicio">
+
+    <!-- ============================================================
+         HERO
+    ============================================================ -->
+    <section class="hero" aria-label="Portada de la boda">
+      <div class="hero__bg" aria-hidden="true"></div>
+
+      <!-- Decorative rings -->
+      <div class="hero__ring hero__ring--1" aria-hidden="true"></div>
+      <div class="hero__ring hero__ring--2" aria-hidden="true"></div>
+      <div class="hero__ring hero__ring--3" aria-hidden="true"></div>
+
+      <!-- Botanical ornaments -->
+      <svg class="hero__botanical hero__botanical--left" aria-hidden="true" viewBox="0 0 200 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 320 C60 280 20 240 40 180 C60 120 100 100 100 60 C100 100 140 120 160 180 C180 240 140 280 100 320Z" fill="rgba(255,255,255,0.6)"/>
+        <path d="M100 260 C80 230 50 210 60 170 C70 130 100 120 100 90" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" fill="none"/>
+        <path d="M100 200 C70 185 55 160 65 140" stroke="rgba(255,255,255,0.35)" stroke-width="1" fill="none"/>
+        <path d="M100 160 C130 145 145 120 135 100" stroke="rgba(255,255,255,0.35)" stroke-width="1" fill="none"/>
+        <circle cx="60" cy="240" r="12" fill="rgba(255,255,255,0.3)"/>
+        <circle cx="140" cy="220" r="9" fill="rgba(255,255,255,0.25)"/>
+        <circle cx="80" cy="160" r="7" fill="rgba(255,255,255,0.3)"/>
+        <circle cx="130" cy="140" r="10" fill="rgba(255,255,255,0.25)"/>
+      </svg>
+
+      <svg class="hero__botanical hero__botanical--right" aria-hidden="true" viewBox="0 0 200 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 280 C60 240 20 200 40 150 C60 100 100 80 100 40 C100 80 140 100 160 150 C180 200 140 240 100 280Z" fill="rgba(255,255,255,0.5)"/>
+        <path d="M100 220 C75 195 50 175 60 145 C70 115 100 105 100 75" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" fill="none"/>
+        <circle cx="55" cy="200" r="10" fill="rgba(255,255,255,0.3)"/>
+        <circle cx="145" cy="185" r="8" fill="rgba(255,255,255,0.25)"/>
+        <circle cx="75" cy="140" r="6" fill="rgba(255,255,255,0.3)"/>
+      </svg>
+
+      <div class="hero__content">
+        <p class="hero__eyebrow">Os invitamos a nuestra boda</p>
+        <h1 class="hero__names">
+          Ana
+          <span class="hero__ampersand">&amp;</span>
+          Carlos
+        </h1>
+        <p class="hero__date">Sábado · 14 de Junio de 2027 · Sevilla</p>
+        <div class="hero__cta-group">
+          <a href="#rsvp" class="hero__btn hero__btn--primary">Confirmar asistencia</a>
+          <a href="#detalles" class="hero__btn hero__btn--outline">Ver detalles</a>
+        </div>
+      </div>
+
+      <div class="hero__scroll" aria-hidden="true">
+        <div class="hero__scroll-arrow"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         COUNTDOWN
+    ============================================================ -->
+    <section class="countdown" aria-label="Cuenta atrás para la boda">
+      <div class="u-container">
+        <div class="countdown__inner">
+          <div class="countdown__item">
+            <span class="countdown__number" id="cd-days">--</span>
+            <span class="countdown__label">Días</span>
+          </div>
+          <span class="countdown__separator" aria-hidden="true">:</span>
+          <div class="countdown__item">
+            <span class="countdown__number" id="cd-hours">--</span>
+            <span class="countdown__label">Horas</span>
+          </div>
+          <span class="countdown__separator" aria-hidden="true">:</span>
+          <div class="countdown__item">
+            <span class="countdown__number" id="cd-minutes">--</span>
+            <span class="countdown__label">Minutos</span>
+          </div>
+          <span class="countdown__separator" aria-hidden="true">:</span>
+          <div class="countdown__item">
+            <span class="countdown__number" id="cd-seconds">--</span>
+            <span class="countdown__label">Segundos</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         NUESTRA HISTORIA
+    ============================================================ -->
+    <section class="story u-section--lg" id="historia" aria-labelledby="story-heading">
+      <div class="u-container">
+        <div class="story__header">
+          <p class="u-label">Nuestra historia</p>
+          <h2 class="story__title" id="story-heading">Cada historia tiene un principio</h2>
+          <div class="u-divider" aria-hidden="true">
+            <div class="u-divider__line"></div>
+            <span class="u-divider__ornament">✦</span>
+            <div class="u-divider__line"></div>
+          </div>
+          <p class="story__subtitle">Un camino compartido que nos ha traído hasta aquí, hasta este día tan especial.</p>
+        </div>
+
+        <div class="story__timeline" role="list">
+
+          <article class="story__item" role="listitem">
+            <div class="story__item-text">
+              <p class="story__item-year">2018</p>
+              <h3 class="story__item-heading">El primer encuentro</h3>
+              <p class="story__item-body">Nos conocimos en una tarde de verano en Sevilla. Una mirada, una sonrisa y el mundo dejó de girar un instante. Fue magia desde el primer momento.</p>
+            </div>
+            <div class="story__item-dot" aria-hidden="true">
+              <div class="story__item-dot-inner"></div>
+            </div>
+            <div class="story__item-image">
+              <img src="img/historia_1 (2).png" alt="Nuestro primer encuentro en Sevilla" />
+            </div>
+          </article>
+
+          <article class="story__item" role="listitem">
+            <div class="story__item-image">
+              <img src="img/vacaciones.png" alt="Nuestro primer viaje juntos a Lisboa" />
+            </div>
+            <div class="story__item-dot" aria-hidden="true">
+              <div class="story__item-dot-inner"></div>
+            </div>
+            <div class="story__item-text">
+              <p class="story__item-year">2020</p>
+              <h3 class="story__item-heading">Nuestro primer viaje juntos</h3>
+              <p class="story__item-body">Lisboa fue nuestra primera aventura. Entre callejones empedrados y miradores al Tajo descubrimos que éramos el uno para el otro sin lugar a dudas.</p>
+            </div>
+          </article>
+
+          <article class="story__item" role="listitem">
+            <div class="story__item-text">
+              <p class="story__item-year">2023</p>
+              <h3 class="story__item-heading">La pedida de mano</h3>
+              <p class="story__item-body">Bajo las estrellas de la Alhambra, Carlos se arrodilló y me preguntó si quería compartir el resto de mi vida con él. La respuesta fue un sí rotundo.</p>
+            </div>
+            <div class="story__item-dot" aria-hidden="true">
+              <div class="story__item-dot-inner"></div>
+            </div>
+            <div class="story__item-image">
+              <img src="img/pedida_mano.jpg" alt="La pedida de mano en la Alhambra" />
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         DETALLES
+    ============================================================ -->
+    <section class="details u-section" id="detalles" aria-labelledby="details-heading">
+      <div class="u-container">
+        <div class="details__header">
+          <p class="u-label">Información</p>
+          <h2 class="details__title" id="details-heading">Detalles del gran día</h2>
+          <div class="u-divider" aria-hidden="true">
+            <div class="u-divider__line"></div>
+            <span class="u-divider__ornament">✦</span>
+            <div class="u-divider__line"></div>
+          </div>
+        </div>
+
+        <div class="details__grid">
+
+          <article class="details__card">
+            <div class="details__card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <p class="details__card-label">Fecha</p>
+            <h3 class="details__card-title">Sábado, 14 de Junio</h3>
+            <p class="details__card-text">Las celebraciones darán comienzo a las 12:00 h con la ceremonia civil y continuarán hasta bien entrada la madrugada.</p>
+          </article>
+
+          <article class="details__card">
+            <div class="details__card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <p class="details__card-label">Lugar</p>
+            <h3 class="details__card-title">Hacienda Los Olivos, Sevilla</h3>
+            <p class="details__card-text">Ctra. de Utrera km 12, 41089 Montequinto, Sevilla. Un enclave único rodeado de olivares centenarios.</p>
+            <a href="https://maps.google.com" target="_blank" rel="noopener" class="details__card-link">Ver en el mapa</a>
+          </article>
+
+          <article class="details__card">
+            <div class="details__card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><path d="M12 11a3 3 0 100-6 3 3 0 000 6z"/></svg>
+            </div>
+            <p class="details__card-label">Código de vestimenta</p>
+            <h3 class="details__card-title">Formal elegante</h3>
+            <p class="details__card-text">Solicitamos traje o americana con corbata para ellos y vestido de fiesta para ellas. Preferiblemente en tonos claros y pasteles.</p>
+          </article>
+
+          <article class="details__card">
+            <div class="details__card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <p class="details__card-label">Horario</p>
+            <h3 class="details__card-title">12:00 — Celebración</h3>
+            <p class="details__card-text">Ceremonia a las 12:00 h · Cóctel a las 13:30 h · Banquete a las 15:00 h · Fiesta desde las 20:00 h.</p>
+          </article>
+
+          <article class="details__card">
+            <div class="details__card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <p class="details__card-label">Transporte</p>
+            <h3 class="details__card-title">Autobús de ida y vuelta</h3>
+            <p class="details__card-text">Habrá autobús desde el centro de Sevilla (Plaza de España) tanto a la ida como a la vuelta. Consulta los horarios en el formulario.</p>
+          </article>
+
+          <article class="details__card">
+            <div class="details__card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            </div>
+            <p class="details__card-label">Menú</p>
+            <h3 class="details__card-title">Cocina tradicional andaluza</h3>
+            <p class="details__card-text">Disfrutaremos de los mejores platos de la gastronomía sevillana. Si tienes alguna alergia o intolerancia, indícalo en el RSVP.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         LUGARES
+    ============================================================ -->
+    <section class="locations u-section" id="lugares" aria-labelledby="locations-heading">
+      <div class="u-container">
+        <div class="locations__header">
+          <p class="u-label">Dónde</p>
+          <h2 class="locations__title" id="locations-heading">Los espacios del día</h2>
+          <div class="u-divider" aria-hidden="true">
+            <div class="u-divider__line"></div>
+            <span class="u-divider__ornament">✦</span>
+            <div class="u-divider__line"></div>
+          </div>
+        </div>
+
+        <div class="locations__grid">
+
+          <article class="location-card">
+            <div class="location-card__image">
+              <img src="img/santa_ana.png" alt="Iglesia de Santa Ana" />
+              <span class="location-card__badge">Ceremonia</span>
+            </div>
+            <div class="location-card__body">
+              <h3 class="location-card__name">Iglesia de Santa Ana</h3>
+              <p class="location-card__address">C. Vázquez de Leca, 3, 41010 Sevilla</p>
+              <div class="location-card__time">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                12:00 h — Ceremonia civil
+              </div>
+              <a href="https://maps.google.com" target="_blank" rel="noopener" class="location-card__map-btn">
+                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Cómo llegar
+              </a>
+            </div>
+          </article>
+
+          <article class="location-card">
+            <div class="location-card__image">
+              <img src="img/lugar_1.png" alt="Hacienda Los Olivos" />
+              <span class="location-card__badge">Banquete</span>
+            </div>
+            <div class="location-card__body">
+              <h3 class="location-card__name">Hacienda Los Olivos</h3>
+              <p class="location-card__address">Ctra. de Utrera km 12, 41089 Montequinto, Sevilla</p>
+              <div class="location-card__time">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                13:30 h — Cóctel y banquete
+              </div>
+              <a href="https://maps.google.com" target="_blank" rel="noopener" class="location-card__map-btn">
+                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Cómo llegar
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PROGRAMA
+    ============================================================ -->
+    <section class="program u-section" id="programa" aria-labelledby="program-heading">
+      <div class="u-container">
+        <div class="program__header">
+          <p class="u-label program__label">El día</p>
+          <h2 class="program__title" id="program-heading">Programa de la boda</h2>
+          <p class="program__subtitle">Un día lleno de momentos especiales</p>
+        </div>
+
+        <ol class="program__timeline" role="list">
+          <li class="program__item">
+            <time class="program__time" datetime="12:00">12:00</time>
+            <div class="program__content">
+              <h3 class="program__event-name">Ceremonia civil</h3>
+              <p class="program__event-desc">Iglesia de Santa Ana — Triana, Sevilla</p>
+            </div>
+          </li>
+          <li class="program__item">
+            <time class="program__time" datetime="13:30">13:30</time>
+            <div class="program__content">
+              <h3 class="program__event-name">Cóctel de bienvenida</h3>
+              <p class="program__event-desc">Jardines de la Hacienda Los Olivos — aperitivos y bebidas</p>
+            </div>
+          </li>
+          <li class="program__item">
+            <time class="program__time" datetime="15:00">15:00</time>
+            <div class="program__content">
+              <h3 class="program__event-name">Banquete nupcial</h3>
+              <p class="program__event-desc">Salón principal — cocina tradicional andaluza</p>
+            </div>
+          </li>
+          <li class="program__item">
+            <time class="program__time" datetime="18:00">18:00</time>
+            <div class="program__content">
+              <h3 class="program__event-name">Tarta y brindis</h3>
+              <p class="program__event-desc">Corte de la tarta nupcial y discursos de los novios</p>
+            </div>
+          </li>
+          <li class="program__item">
+            <time class="program__time" datetime="20:00">20:00</time>
+            <div class="program__content">
+              <h3 class="program__event-name">Primer baile y fiesta</h3>
+              <p class="program__event-desc">¡A bailar! La noche es joven y la música no para</p>
+            </div>
+          </li>
+          <li class="program__item">
+            <time class="program__time" datetime="02:00">02:00</time>
+            <div class="program__content">
+              <h3 class="program__event-name">Despedida y autobús</h3>
+              <p class="program__event-desc">Regreso en autobús al centro de Sevilla</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         RSVP
+    ============================================================ -->
+    <section class="rsvp u-section--lg" id="rsvp" aria-labelledby="rsvp-heading">
+      <div class="u-container">
+        <div class="rsvp__header">
+          <p class="u-label">Confirma tu asistencia</p>
+          <h2 class="rsvp__title" id="rsvp-heading">¿Vendrás a nuestra boda?</h2>
+          <div class="u-divider" aria-hidden="true">
+            <div class="u-divider__line"></div>
+            <span class="u-divider__ornament">✦</span>
+            <div class="u-divider__line"></div>
+          </div>
+          <p class="rsvp__subtitle">Por favor, confírmanos tu asistencia antes del 14 de mayo para que podamos preparar todo con cariño.</p>
+          <span class="rsvp__deadline">Fecha límite: 14 de mayo de 2027</span>
+        </div>
+
+        <div class="rsvp__form-wrapper">
+          <form class="rsvp__form" id="rsvp-form" novalidate aria-label="Formulario de confirmación de asistencia">
+
+            <div class="rsvp__row">
+              <div class="rsvp__field">
+                <label class="rsvp__label" for="rsvp-name">Nombre</label>
+                <input
+                  class="rsvp__input"
+                  type="text"
+                  id="rsvp-name"
+                  name="name"
+                  placeholder="Tu nombre"
+                  required
+                  autocomplete="given-name"
+                />
+              </div>
+              <div class="rsvp__field">
+                <label class="rsvp__label" for="rsvp-surname">Apellidos</label>
+                <input
+                  class="rsvp__input"
+                  type="text"
+                  id="rsvp-surname"
+                  name="surname"
+                  placeholder="Tus apellidos"
+                  required
+                  autocomplete="family-name"
+                />
+              </div>
+            </div>
+
+            <div class="rsvp__field">
+              <label class="rsvp__label" for="rsvp-email">Correo electrónico</label>
+              <input
+                class="rsvp__input"
+                type="email"
+                id="rsvp-email"
+                name="email"
+                placeholder="tu@correo.com"
+                required
+                autocomplete="email"
+              />
+            </div>
+
+            <div class="rsvp__field">
+              <label class="rsvp__label" for="rsvp-phone">Teléfono (opcional)</label>
+              <input
+                class="rsvp__input"
+                type="tel"
+                id="rsvp-phone"
+                name="phone"
+                placeholder="+34 600 000 000"
+                autocomplete="tel"
+              />
+            </div>
+
+            <div class="rsvp__field">
+              <p class="rsvp__label" id="rsvp-attendance-label">Asistencia</p>
+              <div class="rsvp__attendance" role="group" aria-labelledby="rsvp-attendance-label">
+                <label class="rsvp__radio-label">
+                  <input type="radio" name="attendance" value="yes" required />
+                  ✓ &nbsp; Asistiré con alegría
+                </label>
+                <label class="rsvp__radio-label">
+                  <input type="radio" name="attendance" value="no" />
+                  ✗ &nbsp; No podré asistir
+                </label>
+              </div>
+            </div>
+
+            <div class="rsvp__row">
+              <div class="rsvp__field">
+                <label class="rsvp__label" for="rsvp-guests">Número de acompañantes</label>
+                <select class="rsvp__input rsvp__select" id="rsvp-guests" name="guests">
+                  <option value="0">Solo yo</option>
+                  <option value="1">+ 1 persona</option>
+                  <option value="2">+ 2 personas</option>
+                  <option value="3">+ 3 personas</option>
+                </select>
+              </div>
+              <div class="rsvp__field">
+                <label class="rsvp__label" for="rsvp-bus">Autobús</label>
+                <select class="rsvp__input rsvp__select" id="rsvp-bus" name="bus">
+                  <option value="none">No necesito</option>
+                  <option value="both">Ida y vuelta</option>
+                  <option value="there">Solo ida</option>
+                  <option value="back">Solo vuelta</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="rsvp__field">
+              <label class="rsvp__label" for="rsvp-allergies">Alergias o intolerancias alimentarias</label>
+              <input
+                class="rsvp__input"
+                type="text"
+                id="rsvp-allergies"
+                name="allergies"
+                placeholder="Sin gluten, vegetariano, alérgico a frutos secos…"
+              />
+            </div>
+
+            <div class="rsvp__field">
+              <label class="rsvp__label" for="rsvp-message">Mensaje para los novios (opcional)</label>
+              <textarea
+                class="rsvp__input"
+                id="rsvp-message"
+                name="message"
+                rows="3"
+                placeholder="Escribe aquí tus mejores deseos…"
+                style="resize:vertical;"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="rsvp__submit">
+              Enviar confirmación
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         GALERÍA
+    ============================================================ -->
+    <section class="gallery u-section" id="galeria" aria-labelledby="gallery-heading">
+      <div class="u-container">
+        <div class="gallery__header">
+          <p class="u-label">Recuerdos</p>
+          <h2 class="gallery__title" id="gallery-heading">Nuestra galería</h2>
+          <div class="u-divider" aria-hidden="true">
+            <div class="u-divider__line"></div>
+            <span class="u-divider__ornament">✦</span>
+            <div class="u-divider__line"></div>
+          </div>
+        </div>
+
+        <div class="gallery__grid" aria-label="Galería de fotos de Ana y Carlos">
+          <div class="gallery__item gallery__item--tall">
+            <img src="img/galeria_1.png" alt="Detalle del ramo de novia y anillos" />
+          </div>
+          <div class="gallery__item">
+            <img src="img/galeria_2.jpg" alt="Pedida de mano en Granada" />
+          </div>
+          <div class="gallery__item">
+            <img src="img/galeria_3.jpg" alt="Foto en la playa" />
+          </div>
+          <div class="gallery__item gallery__item--tall">
+            <img src="img/galeria_4.jpg" alt="Ana con su vestido de novia" />
+          </div>
+          <div class="gallery__item gallery__item--wide">
+            <img src="img/galeria_5.jpg" alt="Hacienda Los Olivos al atardecer" />
+          </div>
+          <div class="gallery__item">
+            <img src="img/galeria_6.jpg" alt="Flores del ramo de novia" />
+          </div>
+          <div class="gallery__item">
+            <img src="img/galeria_7.jpg" alt="Los novios paseando por Sevilla" />
+          </div>
+          <div class="gallery__item">
+            <img src="img/historia_1.jpeg" alt="Detalles de la decoración" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         LISTA DE BODAS
+    ============================================================ -->
+    <section class="gifts u-section" id="regalos" aria-labelledby="gifts-heading">
+      <div class="u-container">
+        <div class="gifts__header">
+          <p class="u-label">Lista de bodas</p>
+          <h2 class="gifts__title" id="gifts-heading">Si quieres hacernos un regalo</h2>
+          <div class="u-divider" aria-hidden="true">
+            <div class="u-divider__line"></div>
+            <span class="u-divider__ornament">✦</span>
+            <div class="u-divider__line"></div>
+          </div>
+          <p class="gifts__subtitle">Vuestra presencia es el mejor regalo, pero si queréis contribuir a nuestra nueva vida juntos, aquí tenéis algunas opciones.</p>
+        </div>
+
+        <div class="gifts__options">
+
+          <article class="gifts__card">
+            <span class="gifts__card-icon" aria-hidden="true">✈️</span>
+            <h3 class="gifts__card-title">Viaje de novios</h3>
+            <p class="gifts__card-text">Contribuye a nuestro sueño de luna de miel por el Sudeste Asiático. Cada aportación nos acerca un poco más.</p>
+            <a href="#" class="gifts__card-btn">Aportar al viaje</a>
+          </article>
+
+          <article class="gifts__card">
+            <span class="gifts__card-icon" aria-hidden="true">🏠</span>
+            <h3 class="gifts__card-title">Nuestro hogar</h3>
+            <p class="gifts__card-text">Ayúdanos a decorar y equipar nuestro nuevo nido en Sevilla. Tenemos una lista en El Corte Inglés.</p>
+            <a href="#" class="gifts__card-btn">Ver lista de bodas</a>
+          </article>
+
+          <article class="gifts__card">
+            <span class="gifts__card-icon" aria-hidden="true">🎁</span>
+            <h3 class="gifts__card-title">Transferencia bancaria</h3>
+            <p class="gifts__card-text">Si prefieres hacer una transferencia directa, escríbenos y te facilitamos los datos bancarios.</p>
+            <a href="mailto:bodaanacarlos2027@gmail.com" class="gifts__card-btn">Contactar</a>
+          </article>
+
+          <article class="gifts__card">
+            <span class="gifts__card-icon" aria-hidden="true">💌</span>
+            <h3 class="gifts__card-title">Sólo tu presencia</h3>
+            <p class="gifts__card-text">Tu compañía en este día tan especial es el mayor regalo que puedes hacernos. ¡Nos vemos en la boda!</p>
+            <a href="#rsvp" class="gifts__card-btn">Confirmar asistencia</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         ALOJAMIENTO
+    ============================================================ -->
+    <section class="accommodation u-section" id="alojamiento" aria-labelledby="accommodation-heading">
+      <div class="u-container">
+        <div class="accommodation__header">
+          <p class="u-label">Dónde dormir</p>
+          <h2 class="accommodation__title" id="accommodation-heading">Hoteles recomendados</h2>
+          <div class="u-divider" aria-hidden="true">
+            <div class="u-divider__line"></div>
+            <span class="u-divider__ornament">✦</span>
+            <div class="u-divider__line"></div>
+          </div>
+        </div>
+
+        <div class="accommodation__grid">
+
+          <article class="hotel-card">
+            <div class="hotel-card__image">
+              <img src="img/hotel_alfonso.jpg" alt="Hotel Alfonso XIII" />
+            </div>
+            <div class="hotel-card__body">
+              <p class="hotel-card__stars" aria-label="5 estrellas">★★★★★</p>
+              <h3 class="hotel-card__name">Hotel Alfonso XIII</h3>
+              <p class="hotel-card__distance">A 15 min de la hacienda</p>
+              <p class="hotel-card__text">Emblemático hotel de lujo en el corazón de Sevilla. Pregunta por la tarifa especial para invitados de la boda.</p>
+              <a href="https://www.marriott.com" target="_blank" rel="noopener" class="hotel-card__link">Reservar habitación</a>
+            </div>
+          </article>
+
+          <article class="hotel-card">
+            <div class="hotel-card__image">
+              <img src="img/hotel_becquer.jpg" alt="Hotel Bécquer" />
+            </div>
+            <div class="hotel-card__body">
+              <p class="hotel-card__stars" aria-label="4 estrellas">★★★★</p>
+              <h3 class="hotel-card__name">Hotel Bécquer</h3>
+              <p class="hotel-card__distance">A 12 min de la hacienda</p>
+              <p class="hotel-card__text">Hotel boutique en el barrio de Triana. Perfecto para quienes buscan una experiencia más íntima y auténtica.</p>
+              <a href="https://www.hotelbecquer.com" target="_blank" rel="noopener" class="hotel-card__link">Reservar habitación</a>
+            </div>
+          </article>
+
+          <article class="hotel-card">
+            <div class="hotel-card__image">
+              <img src="img/hotel_montequinto.jpg" alt="Hotel Montequinto Inn" />
+            </div>
+            <div class="hotel-card__body">
+              <p class="hotel-card__stars" aria-label="3 estrellas">★★★</p>
+              <h3 class="hotel-card__name">Hotel Montequinto Inn</h3>
+              <p class="hotel-card__distance">A 5 min de la hacienda</p>
+              <p class="hotel-card__text">El hotel más cercano al lugar del banquete. Ideal para quienes prefieren no preocuparse por el regreso.</p>
+              <a href="#" class="hotel-card__link">Reservar habitación</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FAQ
+    ============================================================ -->
+    <section class="faq u-section" id="faq" aria-labelledby="faq-heading">
+      <div class="u-container">
+        <div class="faq__header">
+          <p class="u-label">Dudas</p>
+          <h2 class="faq__title" id="faq-heading">Preguntas frecuentes</h2>
+          <div class="u-divider" aria-hidden="true">
+            <div class="u-divider__line"></div>
+            <span class="u-divider__ornament">✦</span>
+            <div class="u-divider__line"></div>
+          </div>
+        </div>
+
+        <div class="faq__list" role="list">
+
+          <div class="faq__item" role="listitem">
+            <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-1" id="faq-q-1">
+              ¿Puedo llevar a mis hijos?
+              <span class="faq__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="faq__answer" id="faq-answer-1" role="region" aria-labelledby="faq-q-1">
+              <div class="faq__answer-inner">
+                La boda es un evento para adultos. Entendemos que puede ser complicado, así que si necesitáis ayuda para organizar cuidadores, escribidnos y os ayudamos a encontrar soluciones.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq__item" role="listitem">
+            <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-2" id="faq-q-2">
+              ¿Cuál es el código de vestimenta?
+              <span class="faq__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="faq__answer" id="faq-answer-2" role="region" aria-labelledby="faq-q-2">
+              <div class="faq__answer-inner">
+                Pedimos ropa formal elegante. Para ellos, traje o americana con corbata (preferiblemente colores claros). Para ellas, vestido de fiesta o traje de chaqueta. Os agradecemos que evitéis el color blanco, crudo y negro.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq__item" role="listitem">
+            <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-3" id="faq-q-3">
+              ¿Habrá servicio de autobús?
+              <span class="faq__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="faq__answer" id="faq-answer-3" role="region" aria-labelledby="faq-q-3">
+              <div class="faq__answer-inner">
+                Sí. Saldrá un autobús a las 11:15 h desde la Plaza de España (parada frente al monumento). La vuelta saldrá desde la hacienda a las 2:30 h. Indicadlo en el formulario de RSVP para reservar vuestro asiento.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq__item" role="listitem">
+            <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-4" id="faq-q-4">
+              ¿Puedo tomar fotografías durante la ceremonia?
+              <span class="faq__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="faq__answer" id="faq-answer-4" role="region" aria-labelledby="faq-q-4">
+              <div class="faq__answer-inner">
+                Os pedimos que durante la ceremonia dejéis los móviles guardados para estar presentes en cada momento. ¡Nuestro fotógrafo lo capturará todo! Después, en el cóctel y la fiesta, podéis fotografiar y compartir todo lo que queráis.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq__item" role="listitem">
+            <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-5" id="faq-q-5">
+              ¿Dónde puedo aparcar?
+              <span class="faq__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="faq__answer" id="faq-answer-5" role="region" aria-labelledby="faq-q-5">
+              <div class="faq__answer-inner">
+                La hacienda dispone de un amplio aparcamiento gratuito para los invitados. Si venís en coche, podéis aparcar directamente en el recinto sin problema.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq__item" role="listitem">
+            <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-6" id="faq-q-6">
+              ¿Tengo que confirmar antes de una fecha?
+              <span class="faq__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="faq__answer" id="faq-answer-6" role="region" aria-labelledby="faq-q-6">
+              <div class="faq__answer-inner">
+                Sí, por favor confirma antes del 14 de mayo de 2027. Nos ayuda enormemente para organizar el catering, la disposición de mesas y el transporte. ¡Gracias por vuestra puntualidad!
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="u-container">
+      <div class="footer__inner">
+        <div class="footer__monogram" aria-label="Iniciales Ana y Carlos">A &amp; C</div>
+        <p class="footer__tagline">Para siempre juntos</p>
+        <p class="footer__date">14 · Junio · 2027 — Sevilla</p>
+        <div class="footer__divider" aria-hidden="true"></div>
+        <nav class="footer__nav" aria-label="Navegación del pie de página">
+          <a href="#historia"    class="footer__nav-link">Historia</a>
+          <a href="#detalles"    class="footer__nav-link">Detalles</a>
+          <a href="#lugares"     class="footer__nav-link">Lugares</a>
+          <a href="#programa"    class="footer__nav-link">Programa</a>
+          <a href="#galeria"     class="footer__nav-link">Galería</a>
+          <a href="#regalos"     class="footer__nav-link">Regalos</a>
+          <a href="#alojamiento" class="footer__nav-link">Alojamiento</a>
+          <a href="#rsvp"        class="footer__nav-link">RSVP</a>
+        </nav>
+        <p class="footer__copy">Con todo nuestro amor, Ana &amp; Carlos · 2027</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll Top Button -->
+  <button class="scroll-top" id="scroll-top" aria-label="Volver arriba">
+    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <!-- ============================================================
+       SCRIPTS
+  ============================================================ -->
+  <script>
+    /* ---- NAV: Hamburger toggle ---- */
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const navDrawer    = document.getElementById('nav-drawer');
+
+    hamburgerBtn.addEventListener('click', function () {
+      const isOpen = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', String(!isOpen));
+      navDrawer.classList.toggle('is-open', !isOpen);
+
+      // Update tabindex for drawer links
+      const links = navDrawer.querySelectorAll('a');
+      links.forEach(link => {
+        link.setAttribute('tabindex', !isOpen ? '0' : '-1');
+      });
+    });
+
+    // Close drawer on link click
+    navDrawer.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+        navDrawer.classList.remove('is-open');
+      });
+    });
+
+    // Close drawer on outside click
+    document.addEventListener('click', function (e) {
+      if (!hamburgerBtn.contains(e.target) && !navDrawer.contains(e.target)) {
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+        navDrawer.classList.remove('is-open');
+      }
+    });
+
+    /* ---- NAV: Scroll shadow ---- */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', function () {
+      nav.classList.toggle('nav--scrolled', window.scrollY > 10);
+    }, { passive: true });
+
+    /* ---- COUNTDOWN ---- */
+    const weddingDate = new Date('2027-06-14T12:00:00');
+
+    function updateCountdown() {
+      const now  = new Date();
+      const diff = weddingDate - now;
+
+      if (diff <= 0) {
+        document.getElementById('cd-days').textContent    = '00';
+        document.getElementById('cd-hours').textContent   = '00';
+        document.getElementById('cd-minutes').textContent = '00';
+        document.getElementById('cd-seconds').textContent = '00';
+        return;
+      }
+
+      const days    = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours   = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('cd-days').textContent    = String(days).padStart(2, '0');
+      document.getElementById('cd-hours').textContent   = String(hours).padStart(2, '0');
+      document.getElementById('cd-minutes').textContent = String(minutes).padStart(2, '0');
+      document.getElementById('cd-seconds').textContent = String(seconds).padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    /* ---- FAQ accordion ---- */
+    document.querySelectorAll('.faq__question').forEach(btn => {
+      btn.addEventListener('click', function () {
+        const item   = this.closest('.faq__item');
+        const isOpen = item.classList.contains('is-open');
+
+        // Close all
+        document.querySelectorAll('.faq__item').forEach(i => {
+          i.classList.remove('is-open');
+          i.querySelector('.faq__question').setAttribute('aria-expanded', 'false');
+        });
+
+        // Open clicked if it was closed
+        if (!isOpen) {
+          item.classList.add('is-open');
+          this.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    /* ---- SCROLL TOP LOGIC ---- */
+    const scrollTopBtn = document.getElementById('scroll-top');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        scrollTopBtn.classList.add('is-visible');
+      } else {
+        scrollTopBtn.classList.remove('is-visible');
+      }
+    });
+
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    /* ---- RSVP form submission (Formspree) ---- */
+    document.getElementById('rsvp-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const form = this;
+      const btn = form.querySelector('.rsvp__submit');
+      const originalText = btn.innerHTML;
+
+      // Desactivar botón y mostrar estado de carga
+      btn.disabled = true;
+      btn.innerHTML = 'Enviando...';
+
+      const formData = new FormData(form);
+      
+      // NOTA: Reemplaza 'tu-id-formspree' con el ID real de Formspree
+      // Puedes obtener uno gratis en https://formspree.io/
+      try {
+        const response = await fetch('https://formspree.io/f/xanykgzo', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          btn.textContent = '¡Recibido! Gracias por confirmar 🎉';
+          btn.style.background = '#5A8B5A';
+          form.reset();
+        } else {
+          throw new Error('Error en el envío');
+        }
+      } catch (error) {
+        btn.textContent = 'Error al enviar. Inténtalo de nuevo.';
+        btn.style.background = '#8B5A5A';
+        btn.disabled = false;
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.style.background = '';
+        }, 3000);
+      }
+    });
+  </script>
+
+</body>
+</html>
